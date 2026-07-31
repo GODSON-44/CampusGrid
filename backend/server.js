@@ -19,7 +19,7 @@ app.use(
       "http://localhost:5500",
       "http://localhost:5501",
       "http://127.0.0.1:5500", // Added to match your current frontend origin
-      // "https://connect-a0yk.onrender.com", // Uncomment when deploying
+      "https://campus-grid-two.vercel.app",
     ],
     credentials: true,
   })

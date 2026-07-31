@@ -1,8 +1,9 @@
 // Fetch current user profile and unlock admin panel
+BASE_URL = "https://campusgrid-f3z4.onrender.com"
 async function fetchUserProfile() {
     try {
         const response = await fetch(
-            "http://localhost:5001/api/admin/profile",
+            BASE_URL+"/api/admin/profile",
             {
                 credentials: "include"
             }
@@ -44,7 +45,7 @@ async function fetchUserProfile() {
 async function logout() {
     try {
         await fetch(
-            "http://localhost:5001/api/logout",
+            BASE_URL+"/api/logout",
             {
                 method: "POST",
                 credentials: "include"
@@ -85,7 +86,7 @@ async function registerStudent(e) {
             imageForm.append("image", file);
 
             const uploadResponse = await fetch(
-                "http://localhost:5001/api/upload",
+                BASE_URL+"/api/upload",
                 {
                     method: "POST",
                     body: imageForm
@@ -120,7 +121,7 @@ async function registerStudent(e) {
         // Register Student
         // ==========================
         const response = await fetch(
-            "http://localhost:5001/api/admin/register-student",
+            BASE_URL+"/api/admin/register-student",
             {
                 method: "POST",
                 credentials: "include",

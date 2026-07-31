@@ -1,5 +1,5 @@
 // Global variables
-const BASE_URL = "http://localhost:5001";
+const BASE_URL = "https://campusgrid-f3z4.onrender.com";
 let currentStudentData = {
     name: "Authorizing...",
     roll: "--",
@@ -318,7 +318,7 @@ async function fetchUserProfile() {
         
 
 
-        const response = await fetch("http://localhost:5001/api/student/profile", {
+        const response = await fetch(BASE_URL+"/api/student/profile", {
             credentials: "include"
         });
         // console.log(response)

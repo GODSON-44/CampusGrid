@@ -1,5 +1,6 @@
 let currentRole = "student";
 console.log("login.js loaded");
+const BASE_URL = "https://campusgrid-f3z4.onrender.com"
 
 // Change Role
 function setRole(role) {
@@ -63,7 +64,7 @@ async function handleAuth(e) {
 
     try {
         const response = await fetch(
-            "http://localhost:5001/api/login",
+            BASE_URL+"/api/login",
             {
                 method: "POST",
                 credentials: "include",

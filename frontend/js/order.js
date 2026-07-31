@@ -2,7 +2,7 @@
 // CONFIGURATION
 // ================================
 
-const BASE_URL = "http://localhost:5001";
+const BASE_URL = "https://campusgrid-f3z4.onrender.com";
 let currentPendingToken = null;
 let pollingInterval = null;
 

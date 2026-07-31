@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5001";
+const BASE_URL = "https://campusgrid-f3z4.onrender.com";
 
 const cam = document.getElementById("cam");
 const stop = document.getElementById("stop");
