@@ -1,0 +1,11 @@
+/* Google Font */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Glassmorphism Card */
+.glass {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}

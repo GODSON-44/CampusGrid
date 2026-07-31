@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Guard Dashboard - Records</title>
+
+    <link rel="stylesheet" href="./css/guard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top mb-4">
+        <div class="container">
+
+            <a class="navbar-brand d-flex align-items-center"
+                href="https://bitmesra.ac.in/">
+                <img id="logo" src="./logo.png" alt="Logo">
+            </a>
+
+            <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end"
+                id="navbarNav">
+
+                <ul class="navbar-nav align-items-center gap-2">
+
+                    <li class="nav-item">
+                        <a class="nav-link active fw-medium" href="#">
+                            <i class="bi bi-house-door me-1"></i>
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium"
+                            href="https://bitmesra.ac.in/bitpatna">
+
+                            <i class="bi bi-building me-1"></i>
+                            BIT Patna
+
+                        </a>
+                    </li>
+
+                    <li class="nav-item ms-lg-2">
+                        <a id="QR"
+                            class="btn btn-outline-secondary btn-sm rounded-pill px-3"
+                            href="./QR_scanner.jpg"
+                            download="QR_scanner.jpg">
+
+                            <i class="bi bi-qr-code me-1"></i>
+                            Sample QR
+
+                        </a>
+                    </li>
+
+                    <li class="nav-item ms-lg-3">
+                        <button id="logoutBtn"
+                            class="btn btn-danger btn-sm px-3 rounded-3 d-flex align-items-center gap-1">
+
+                            <i class="bi bi-box-arrow-right"></i>
+                            Logout
+
+                        </button>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="row g-3 mb-4">
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm">
+
+                    <div class="bg-primary-subtle text-primary p-3 rounded-3 me-3">
+                        <i class="bi bi-clock-history fs-4"></i>
+                    </div>
+
+                    <div>
+                        <small class="text-muted d-block">Live System Time</small>
+                        <span id="liveClock" class="fw-bold fs-5">--:--:--</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm">
+
+                    <div class="bg-success-subtle text-success p-3 rounded-3 me-3">
+                        <i class="bi bi-database-check fs-4"></i>
+                    </div>
+
+                    <div>
+                        <small class="text-muted d-block">Database Status</small>
+
+                        <span class="fw-bold text-success d-flex align-items-center">
+                            <span class="status-dot"></span>
+                            Ports Active
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4 camera">
+
+                <div class="card scanner-card">
+
+                    <div class="scanner-img-container">
+
+                        <img id="image"
+                            src="./917d39e7-0dc6-493f-bb2c-fdb8e330f0ec.jpg"
+                            class="w-100 h-100 object-fit-cover"
+                            alt="Scanner Window">
+
+                        <div id="reader"
+                            class="position-absolute top-0 start-0 w-100 h-100 bg-white"
+                            style="display:none;"></div>
+
+                    </div>
+
+                    <div class="card-body p-4">
+
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+
+                            <h5 class="card-title fw-bold m-0">
+                                Scanner Unit
+                            </h5>
+
+                            <span id="scanStatus"
+                                class="badge bg-secondary-subtle text-secondary px-2.5 py-1.5 rounded-pill">
+                                Idle
+                            </span>
+
+                        </div>
+
+                        <p class="card-text text-muted small mb-4">
+                            Provide verification purpose statement,
+                            then engage scanner device.
+                        </p>
+
+                        <div class="mb-4">
+
+                            <label for="prps"
+                                class="form-label small fw-semibold text-secondary">
+                                Purpose of Entry
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text bg-light border-end-0">
+                                    <i class="bi text-muted bi-chat-right-text"></i>
+                                </span>
+
+                                <input id="prps"
+                                    type="text"
+                                    class="form-control bg-light border-start-0 ps-1"
+                                    placeholder="e.g., Official Visit, Delivery">
+
+                            </div>
+
+                        </div>
+
+                        <div class="row g-2 button">
+
+                            <div class="col-6">
+
+                                <button id="cam"
+                                    class="btn btn-primary w-100 py-2.5 rounded-3 fw-medium">
+
+                                    <i class="bi bi-camera me-1"></i>
+                                    Scan
+
+                                </button>
+
+                            </div>
+
+                            <div class="col-6">
+
+                                <button id="stop"
+                                    class="btn btn-danger w-100 py-2.5 rounded-3 fw-medium">
+
+                                    <i class="bi bi-stop-circle me-1"></i>
+                                    Stop
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-8 datatable">
+
+                <div class="table-container">
+
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-stretch align-items-sm-center gap-3 mb-4">
+
+                        <div>
+
+                            <h5 class="fw-bold m-0">
+                                Security Entry Log
+                            </h5>
+
+                            <small class="text-muted">
+                                Real-time incoming Records!
+                            </small>
+
+                        </div>
+
+                        <div style="max-width:280px;">
+
+                            <div class="input-group input-group-sm">
+
+                                <span class="input-group-text bg-light">
+                                    <i class="bi bi-search"></i>
+                                </span>
+
+                                <input id="tableSearch"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Quick Filter Logs...">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle mb-0">
+
+                            <thead class="table-light text-secondary">
+
+                                <tr>
+
+                                    <th>S.No</th>
+                                    <th>Name</th>
+                                    <th>Roll</th>
+                                    <th>Phone</th>
+                                    <th>Branch</th>
+                                    <th>Purpose</th>
+                                    <th class="text-end">Out-Time</th>
+                                    <th class="text-end">In-Time</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="table"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="scan-success-modal"
+        class="position-fixed top-0 start-0 w-100 h-100 d-none justify-content-center align-items-center bg-dark bg-opacity-50">
+
+        <div class="bg-white p-4 rounded-4 shadow-lg text-center"
+            style="max-width:320px;width:90%;">
+
+            <div class="profile-img-container">
+                <img id="modal-img"
+                    src="./avatar.png"
+                    alt="Student Profile">
+            </div>
+
+            <h5 class="fw-bold mb-1 text-success">
+                Verification Successful
+            </h5>
+
+            <p id="modal-name"
+                class="text-muted small mb-1">
+                Student Name
+            </p>
+
+            <p id="modal-roll"
+                class="badge bg-light text-dark font-monospace">
+                Roll Number
+            </p>
+
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="./js/guard.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/fetchsql.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
