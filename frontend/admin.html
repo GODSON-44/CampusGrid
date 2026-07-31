@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard - BIT Patna</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="icon" type="image/png" href="logo.png">
+</head>
+
+<body class="bg-slate-50 min-h-screen text-slate-900 flex flex-col">
+
+    <nav class="border-b border-slate-100 px-6 py-4 flex justify-between items-center bg-white sticky top-0 z-10">
+        <div class="flex items-center gap-4">
+            <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-extrabold text-sm shadow-md">
+                B
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-100 text-indigo-700">
+                    Administrative Staff
+                </span>
+
+                <span id="user-display" class="font-semibold text-slate-700">
+                    Authorizing...
+                </span>
+            </div>
+        </div>
+
+        <button
+            onclick="logout()"
+            class="text-slate-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-red-50"
+            title="Log out">
+
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                </path>
+            </svg>
+
+        </button>
+    </nav>
+
+    <main class="p-4 md:p-8 max-w-6xl mx-auto w-full flex-grow">
+
+        <header class="mb-8">
+            <h2 class="text-3xl font-extrabold text-slate-900" id="dash-title">
+                Administration Portal
+            </h2>
+
+            <p class="text-slate-500" id="dash-subtitle">
+                Verifying department configurations...
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+            <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all">
+                <div class="text-3xl mb-4">💰</div>
+
+                <h3 class="text-slate-500 text-sm font-medium">
+                    Payroll & Finance
+                </h3>
+
+                <p class="text-2xl font-bold text-slate-800 mt-1">
+                    Processed
+                </p>
+
+                <div class="mt-4 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-emerald-500 w-full"></div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all">
+                <div class="text-3xl mb-4">📩</div>
+
+                <h3 class="text-slate-500 text-sm font-medium">
+                    Department Requests
+                </h3>
+
+                <p class="text-2xl font-bold text-slate-800 mt-1">
+                    8 Pending
+                </p>
+
+                <div class="mt-4 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-amber-500 w-1/3"></div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all">
+                <div class="text-3xl mb-4">⚙️</div>
+
+                <h3 class="text-slate-500 text-sm font-medium">
+                    System Health
+                </h3>
+
+                <p class="text-2xl font-bold text-slate-800 mt-1">
+                    Operational
+                </p>
+
+                <div class="mt-4 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-blue-500 w-full"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div
+            id="registration-panel"
+            class="bg-white p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm hidden transition-all">
+
+            <div class="border-b border-slate-100 pb-4 mb-6 flex justify-between items-center">
+
+                <div>
+                    <h3 class="text-xl font-extrabold text-slate-900">
+                        Student Onboarding Database
+                    </h3>
+
+                    <p class="text-sm text-slate-500 mt-1">
+                        Register new student credentials directly into the students_auth table.
+                    </p>
+                </div>
+
+                <span class="px-3 py-1 bg-emerald-50 text-emerald-600 text-xs font-bold rounded-lg border border-emerald-100">
+                    Admin Privileges Active
+                </span>
+
+            </div>
+
+            <form
+                id="student-reg-form"
+                class="space-y-6">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            System ID (e.g., S103)
+                        </label>
+
+                        <input
+                            type="text"
+                            id="reg-id"
+                            required
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Initial Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="reg-pass"
+                            required
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="reg-name"
+                            required
+                            placeholder="e.g., John Doe"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Roll Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="reg-roll"
+                            required
+                            placeholder="e.g., 10103"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Branch
+                        </label>
+
+                        <select
+                            id="reg-branch"
+                            required
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600">
+
+                            <option value="CSE">CSE (Computer Science)</option>
+                            <option value="ECE">ECE (Electronics & Comm)</option>
+                            <option value="EEE">EEE (Electrical)</option>
+                            <option value="MECH">MECH (Mechanical)</option>
+                            <option value="CIVIL">CIVIL</option>
+                            <option value="IT">IT (Information Tech)</option>
+
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="reg-phone"
+                            required
+                            placeholder="10-digit number"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Parent Phone (p_mob)
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="reg-pmob"
+                            required
+                            placeholder="10-digit number"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Student Profile Picture
+                        </label>
+
+                        <input
+                            type="file"
+                            id="reg-pic"
+                            accept="image/*"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm">
+                    </div>
+
+                </div>
+
+                <div class="space-y-2">
+
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        Academic Details (Description)
+                    </label>
+
+                    <input
+                        type="text"
+                        id="reg-detail"
+                        required
+                        placeholder="e.g., Enrolled in B.Tech CSE - Roll 10103"
+                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600">
+
+                </div>
+
+                <div class="pt-4 flex items-center justify-between">
+
+                    <p id="reg-status" class="text-sm font-semibold hidden"></p>
+
+                    <button
+                        type="submit"
+                        id="reg-submit-btn"
+                        class="py-3 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-2xl transition-all shadow-md flex items-center gap-2">
+
+                        Add to Database
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+    <footer class="mt-auto py-6 text-center border-t border-slate-100 bg-white">
+        <p class="text-xs text-slate-400">
+            © 2026 Birla Institute of Technology, Patna Campus.
+        </p>
+    </footer>
+
+    <!-- Custom JavaScript -->
+    <script src="./js/admin.js"></script>
+
+</body>
+</html>

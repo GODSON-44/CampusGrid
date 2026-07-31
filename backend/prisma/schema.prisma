@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model GatePass {
+  id        Int       @id @default(autoincrement())
+  name      String
+  roll      String
+  phone     String
+  parentsPh String
+  branch    String
+  reason    String?
+  outTime   DateTime
+  inTime    DateTime?
+  createdAt DateTime  @default(now())
+}
+
+
+model Product {
+  id            Int            @id @default(autoincrement())
+  name          String
+  description   String?
+  price         Float
+  inStock       Boolean        @default(true)
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  pendingItems  PendingItem[]
+  purchaseItems PurchaseItem[]
+}
+
+model PendingOrder {
+    id Int @id @default(autoincrement())
+
+    studentId String
+    rollNumber String @unique
+
+    token String @unique
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    items PendingItem[]
+}
+
+model PendingItem {
+  id             Int @id @default(autoincrement())
+
+  pendingOrderId Int
+  productId      Int
+
+  quantity Int
+
+  pendingOrder PendingOrder @relation(fields: [pendingOrderId], references: [id], onDelete: Cascade)
+  product      Product      @relation(fields: [productId], references: [id])
+
+  @@unique([pendingOrderId, productId])
+}
+
+model Purchase {
+  id Int @id @default(autoincrement())
+
+  studentId   String
+  rollNumber  String
+
+  totalAmount Float
+
+  createdAt DateTime @default(now())
+
+  items PurchaseItem[]
+}
+
+model PurchaseItem {
+  id Int @id @default(autoincrement())
+
+  purchaseId Int
+  productId  Int
+
+  quantity Int
+  price    Float
+
+  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  product  Product  @relation(fields: [productId], references: [id])
+}
