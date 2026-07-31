@@ -181,18 +181,12 @@ cam.addEventListener("click", async () => {
     try {
 
         await html5QrCode.start(
-
-            {
-                facingMode: "environment"
-            },
-
-            {
-                fps: 16,
-            },
-
+            { facingMode: "environment" },
+            { fps: 16 },
             onScanSuccess
-
         );
+
+        document.getElementById("reader").style.display = "block";
 
     } catch (err) {
 

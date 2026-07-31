@@ -37,13 +37,41 @@ body {
     transition: transform 0.3s ease;
 }
 
-.scanner-img-container {
+/* .scanner-img-container {
     position: relative;
     background-color: #eaeef3;
     min-height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
+} */
+
+.scanner-img-container {
+    position: relative;
+    background-color: #eaeef3;
+    height: 350px;          /* Increase if you want a bigger scanner */
+    overflow: hidden;
+}
+
+#reader {
+    position: absolute !important;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#reader > div {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#reader video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
 }
 
 /* Form Controls */
