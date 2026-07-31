@@ -188,7 +188,6 @@ cam.addEventListener("click", async () => {
 
             {
                 fps: 16,
-                qrbox: 300
             },
 
             onScanSuccess
