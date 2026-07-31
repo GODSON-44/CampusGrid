@@ -62,7 +62,7 @@ async function logout() {
 
 // Register Student
 async function registerStudent(e) {
-     console.log("registerStudent called");
+    console.log("registerStudent called");
     e.preventDefault();
 
     const btn = document.getElementById("reg-submit-btn");
@@ -73,52 +73,52 @@ async function registerStudent(e) {
     btn.innerText = "Processing...";
     btn.disabled = true;
 
-    // Upload profile picture to Cloudinary
-    const fileInput = document.getElementById("reg-pic");
-    const file = fileInput.files[0];
+    try {
+        // ==========================
+        // Upload Image to Backend
+        // ==========================
+        const fileInput = document.getElementById("reg-pic");
+        const file = fileInput.files[0];
 
-    if (file) {
-        const formData = new FormData();
+        if (file) {
+            const imageForm = new FormData();
+            imageForm.append("image", file);
 
-        formData.append("file", file);
-        formData.append("upload_preset", "student_images");
-
-        try {
             const uploadResponse = await fetch(
-                "https://api.cloudinary.com/v1_1/dzablo6gs/image/upload",
+                "http://localhost:5001/api/upload",
                 {
                     method: "POST",
-                    body: formData
+                    body: imageForm
                 }
             );
 
-            const imageData = await uploadResponse.json();
-            profilePicUrl = imageData.secure_url;
+            const uploadData = await uploadResponse.json();
 
-        } catch (err) {
-            console.error(
-                "Image upload failed, using default avatar.",
-                err
-            );
+            if (!uploadResponse.ok || !uploadData.success) {
+                throw new Error(uploadData.message || "Image upload failed");
+            }
+
+            profilePicUrl = uploadData.imageUrl;
         }
-    }
 
-    // Build payload
-    const payload = {
-        userId: document.getElementById("reg-id").value.trim(),
-        password: document.getElementById("reg-pass").value,
-        name: document.getElementById("reg-name").value.trim(),
-        roll: document.getElementById("reg-roll").value.trim(),
-        branch: document.getElementById("reg-branch").value,
-        profile_pic_url: profilePicUrl,
-        phone: document.getElementById("reg-phone").value.trim(),
-        p_mob: document.getElementById("reg-pmob").value.trim(),
-        detail: document.getElementById("reg-detail").value.trim()
-    };
+        // ==========================
+        // Build Payload
+        // ==========================
+        const payload = {
+            userId: document.getElementById("reg-id").value.trim(),
+            password: document.getElementById("reg-pass").value,
+            name: document.getElementById("reg-name").value.trim(),
+            roll: document.getElementById("reg-roll").value.trim(),
+            branch: document.getElementById("reg-branch").value,
+            profile_pic_url: profilePicUrl,
+            phone: document.getElementById("reg-phone").value.trim(),
+            p_mob: document.getElementById("reg-pmob").value.trim(),
+            detail: document.getElementById("reg-detail").value.trim()
+        };
 
-    console.log("Payload:", payload);
-
-    try {
+        // ==========================
+        // Register Student
+        // ==========================
         const response = await fetch(
             "http://localhost:5001/api/admin/register-student",
             {
@@ -132,32 +132,32 @@ async function registerStudent(e) {
         );
 
         const result = await response.json();
-        if (result.success) {
-            console.log("result has success")
-            statusText.innerText = "Student registered successfully.";
-            statusText.className = "text-green-600 text-sm mt-3";
 
-            document.getElementById("student-reg-form").reset();
-        } else {
-            statusText.innerText =
-                result.message || "Registration failed.";
-
-            statusText.className = "text-red-600 text-sm mt-3";
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || "Registration failed");
         }
 
+        statusText.innerText = "Student registered successfully.";
+        statusText.className = "text-green-600 text-sm mt-3";
+
+        document.getElementById("student-reg-form").reset();
+
     } catch (err) {
+
         console.error(err);
 
-        statusText.innerText = "Server error. Please try again.";
+        statusText.innerText = err.message || "Server error. Please try again.";
         statusText.className = "text-red-600 text-sm mt-3";
 
     } finally {
+
         btn.disabled = false;
         btn.innerText = "Register Student";
 
         setTimeout(() => {
             statusText.innerText = "";
         }, 3000);
+
     }
 }
 

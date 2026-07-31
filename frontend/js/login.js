@@ -62,9 +62,6 @@ async function handleAuth(e) {
     }
 
     try {
-        console.log(id)
-        console.log(password)
-        console.log(currentRole)
         const response = await fetch(
             "http://localhost:5001/api/login",
             {

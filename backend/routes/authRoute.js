@@ -75,8 +75,6 @@ router.post("/register/admin", async(req, res)=>{
     }
     
 })
-
-
 router.post("/admin/register-student",protectRouteAdmin, async(req, res)=>{
     try {
         const { userId, password, name, roll, branch, phone, p_mob, profile_pic_url, detail} = req.body;

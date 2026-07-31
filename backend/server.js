@@ -2,6 +2,7 @@ const express = require("express")
 const dotenv = require("dotenv")
 const cookie = require("cookie-parser")
 const authRoute = require("./routes/authRoute")
+const uploadRoute = require("./routes/uploadRoute")
 const connectDB = require("./lib/db")
 const cors = require("cors")
 
@@ -30,6 +31,7 @@ app.use(cookie())
 
 
 app.use("/api", authRoute);
+app.use("/api/upload", uploadRoute);
 
 
 
